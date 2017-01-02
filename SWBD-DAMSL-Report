@@ -1,0 +1,66 @@
+Assignment 3 Report
+
+Name: Niranjana Kandavel
+
+1. If you included files other than baseline_crf.py, advanced_crf.py, evaluate_model.py, and hw3_corpus_tool.py, or modified hw3_corpus_tool.py please describe what the files do and/or your modifications to hw3_corpus_tool.py.
+evaluate_baseline.py - It is used to calculate the accuracy for baseline_crf
+evaluate_advanced.py - It is used to calculate the accuracy for advanced_crf
+
+2. Describe how you evaluated your baseline and advanced features
+
+Replace this text with a description of how you used the labeled data
+to train and evaluate different models (e.g., moving ~25% data into a
+separate development directory).
+
+-I created 2 folders - "Train" and "Test".
+-Copied files from 0001.csv to 1000.csv to "Train" folder
+-Copied files from 1001.csv to 1076.csv to "Test" folder
+-Script evaluate_baseline.py reads the data from "Train" folder, extracts features and create a model - ninja.crfsuite using "Trainer"
+(Used get_data function from hw3_corpus_tool.py to read all data from "Train" folder)
+Then, for every file in the "Test" folder,(Used get_utterances_from_filename function from hw3_corpus_tool.py to read data from every file)
+	-It forms the features
+	-Get the output tags from "Tagger"
+	-Compares the output with its actual tag.
+If it is tagged correctly, match variable gets incremented by 1, else mismatch variable gets incremented by 1.
+accuracy is calculated as (match/(match+mismatch))
+
+Got accuracy as 72.24 for baseline feature with 100 iteration
+Got accuracy as 71.68 for baseline feature with 50 iteration
+
+Another Method
+I did a split of 75% : 25% and ran for 200 iterations
+-Copied files from 0208.csv to 1076.csv to "Train" Folder
+-Copied files from 0001.csv to 0209.csv to "Test" Folder
+I got Baseline Accuracy as 72.78 and Advanced Accuracy as 74.18
+
+3. Describe your advanced feature set.
+
+I found some improvement with accuracy (72.85) with the following additional features, in addition to the 4 baseline features
+-number of tokens in the text
+-adding bigrams as BIGRAM_token1_token2
+
+In addition to the above 2 + 4 baseline features, I added the following feature
+-feature marking last utterence of a dialog
+Got accuracy as - 73.82
+
+In addition to them 3 + 4 baseline features, I added the following feature
+-feature marking if the dialog has '?'
+Got accuracy as - 73.77
+
+[all with 100 iterations]
+
+4. If you tried alternate advanced feature sets, please describe them.
+
+I experimented with different features (in different combinations)
+-number of tokens
+-length of text
+-marking last utterence of a dialog
+-number of capital letters
+-number of digits
+-number of symbols
+-number of '!'
+
+[all with 100 as well as 50 iterations]
+
+5. Accuracy of baseline features was: 72.24 (vocareum) - [from local machine with 75:25 split - 72.78]
+6. Accuracy of advanced features was: 73.85 (vocareum) - [from local machine with 75:25 split - 74.18]
